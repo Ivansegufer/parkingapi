@@ -1,0 +1,189 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "parking",
+    "dateExported": "2024-03-02T19:58:55.607Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "69fdffd8-e555-4816-8cd8-fea2b911f568",
+            "name": "fare",
+            "containerId": "",
+            "created": "2024-03-02T18:46:43.930Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "90bfe965-cd36-471c-be09-b2d7213da241",
+            "name": "car",
+            "containerId": "",
+            "created": "2024-03-02T19:05:43.544Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "6c2410e6-4894-40ac-982b-9f1a0b55f2c5",
+            "name": "movement",
+            "containerId": "",
+            "created": "2024-03-02T19:16:54.064Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "2ed3301e-112e-47a2-91d9-d391dda53cda",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "69fdffd8-e555-4816-8cd8-fea2b911f568",
+            "name": "get-default",
+            "url": "{{HOSTNAME}}/parking/api/fare",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-03-02T18:46:52.802Z",
+            "modified": "2024-03-02T19:54:55.885Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "381341a9-3620-439d-af84-28e14eeff8ba",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "90bfe965-cd36-471c-be09-b2d7213da241",
+            "name": "create",
+            "url": "{{HOSTNAME}}/parking/api/car",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-03-02T19:05:54.408Z",
+            "modified": "2024-03-02T19:33:01.661Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"plate_number\": \"ABC-223\",\n  \"model\": \"FORD 150\",\n  \"year\": 2018,\n  \"color\": \"negro\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "81392e48-3b67-4190-8605-9a84a4f395bf",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "90bfe965-cd36-471c-be09-b2d7213da241",
+            "name": "update",
+            "url": "{{HOSTNAME}}/parking/api/car",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2024-03-02T19:13:57.499Z",
+            "modified": "2024-03-02T19:34:52.676Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 1,\n  \"color\": \"gris\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "53db1cb1-9dc3-4007-8bf7-2aa1cb2310a5",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "90bfe965-cd36-471c-be09-b2d7213da241",
+            "name": "get-all",
+            "url": "{{HOSTNAME}}/parking/api/car",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-03-02T19:14:53.080Z",
+            "modified": "2024-03-02T19:14:58.031Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e2371102-f0e4-49ce-a74a-202226a03dac",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "90bfe965-cd36-471c-be09-b2d7213da241",
+            "name": "get-by-plate-number",
+            "url": "{{HOSTNAME}}/parking/api/car?plate_number=ABC-223",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-03-02T19:15:55.843Z",
+            "modified": "2024-03-02T19:58:11.046Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "plate_number",
+                    "value": "ABC-223",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "e6a8ef8d-d77c-4a6c-b4cf-28855c8b47c8",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "6c2410e6-4894-40ac-982b-9f1a0b55f2c5",
+            "name": "create",
+            "url": "{{HOSTNAME}}/parking/api/movement",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-03-02T19:17:04.464Z",
+            "modified": "2024-03-02T19:35:21.901Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"car_id\": 1,\n  \"enter_date\": \"2024-03-01 14:23:50\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "dd98494b-7f2c-41d9-bbcb-7940bf9d1955",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "6c2410e6-4894-40ac-982b-9f1a0b55f2c5",
+            "name": "get-all-actives",
+            "url": "{{HOSTNAME}}/parking/api/movement",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-03-02T19:21:15.650Z",
+            "modified": "2024-03-02T19:21:20.665Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0db479bd-09e3-4774-92c1-fde07c3c3c85",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "6c2410e6-4894-40ac-982b-9f1a0b55f2c5",
+            "name": "get-all-by-date",
+            "url": "{{HOSTNAME}}/parking/api/movement?enter_date=2024-03-01",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-03-02T19:24:28.440Z",
+            "modified": "2024-03-02T19:36:28.132Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "enter_date",
+                    "value": "2024-03-01",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "52897c2a-51e3-4c47-81d5-1a9dec0aa72f",
+            "colId": "c01acfcd-6ca2-4081-8957-658c2aa0b048",
+            "containerId": "6c2410e6-4894-40ac-982b-9f1a0b55f2c5",
+            "name": "update",
+            "url": "{{HOSTNAME}}/parking/api/movement",
+            "method": "PATCH",
+            "sortNum": 80000,
+            "created": "2024-03-02T19:25:47.193Z",
+            "modified": "2024-03-02T19:35:53.909Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 1,\n  \"amount\": 35,\n  \"exit_date\": \"2024-03-02 15:20:10\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

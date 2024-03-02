@@ -1,0 +1,13 @@
+{
+    "client": "Thunder Client",
+    "environmentName": "(Global Env)",
+    "dateExported": "2024-03-02T19:59:05.860Z",
+    "version": "1.0",
+    "global": true,
+    "variables": [
+        {
+            "name": "HOSTNAME",
+            "value": "http://localhost:9099"
+        }
+    ]
+}

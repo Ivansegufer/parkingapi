@@ -1,0 +1,25 @@
+services:
+  db:
+    image: mysql:8.2.0
+    container_name: parkingdb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+      - TZ=${TIMEZONE}
+    ports:
+      - 3306:3306
+    volumes:
+      - parking_db:/var/lib/mysql
+      - ../scripts:/docker-entrypoint-initdb.d
+  api:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: parkingapi
+    restart: always
+    ports:
+      - 9099:80
+
+volumes:
+  parking_db:
