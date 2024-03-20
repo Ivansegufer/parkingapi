@@ -1,21 +1,31 @@
 <?php
 class MovementController {
-    public function getAllActives() {
+    public function getAllActivesByUserId($userId) {
         $movementModel = new MovementModel();
-        return $movementModel->getAllActives();
+        return $movementModel->getAllActivesByUserId($userId);
     }
 
-    public function getAllByEnterDate($enter_date) {
+    /*
+    public function getAllByEnterDate($enterDate) {
         $movementModel = new MovementModel();
-        return $movementModel->getAllByEnterDate($enter_date);
+        return $movementModel->getAllByEnterDate();
     }
+    */
 
     public function create() {
         $movementModel = new MovementModel();
-        return $movementModel->create(
-            $_POST["car_id"],
-            $_POST["enter_date"]
+        $establishmentModel = new EstablishmentModel();
+        $movementId = $movementModel->create(
+            $_POST["carId"],
+            $_POST["establishmentId"],
+            $_POST["enterDate"]
         );
+
+        if (!$movementId) {
+            return false;
+        }
+
+        return $establishmentModel->increaseOccupiedStands($movementId);
     }
 
     public function update() {
@@ -23,7 +33,7 @@ class MovementController {
         return $movementModel->update(
             $_POST["id"],
             $_POST["amount"],
-            $_POST["exit_date"]
+            $_POST["exitDate"]
         );
     }
 }

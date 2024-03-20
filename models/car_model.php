@@ -1,13 +1,20 @@
 <?php
 class CarModel extends Connection {
-    public function getAll() {
+    public function getAllByUserId($userId) {
         $pdo = self::connect();
 
         $stmt = $pdo->prepare("
-            SELECT id, plate_number,
-                model, year, color
-            FROM cars;
+            SELECT
+                id AS id,
+                plate_number AS plateNumber,
+                model AS model,
+                year AS year,
+                color AS color
+            FROM cars
+            WHERE user_id = :user_id;
         ");
+
+        $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
 
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -18,17 +25,23 @@ class CarModel extends Connection {
         return $results;
     }
 
-    public function getByPlateNumber($plate_number) {
+    public function getByPlateNumber($userId, $plateNumber) {
         $pdo = self::connect();
 
         $stmt = $pdo->prepare("
-            SELECT id, plate_number,
-                model, year, color
+            SELECT 
+                id AS id,
+                plate_number AS plateNumber,
+                model AS model,
+                year AS year,
+                color AS color
             FROM cars
-            WHERE plate_number like :plate_number;
+            WHERE user_id = :user_id
+                AND plate_number like :plate_number;
         ");
 
-        $stmt->bindParam(":plate_number", $plate_number, PDO::PARAM_STR);
+        $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+        $stmt->bindParam(":plate_number", $plateNumber, PDO::PARAM_STR);
 
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -39,15 +52,16 @@ class CarModel extends Connection {
         return $result;
     }
 
-    public function create($plate_number, $model, $year, $color) {
+    public function create($userId, $plateNumber, $model, $year, $color) {
         $pdo = self::connect();
 
         $stmt = $pdo->prepare("
-            INSERT INTO cars (plate_number, model, year, color) VALUES
-                (:plate_number, :model, :year, :color);
+            INSERT INTO cars (user_id, plate_number, model, year, color) VALUES
+                (:user_id, :plate_number, :model, :year, :color);
         ");
 
-        $stmt->bindParam(":plate_number", $plate_number, PDO::PARAM_STR);
+        $stmt->bindParam(":user_id", $userId, PDO::PARAM_STR);
+        $stmt->bindParam(":plate_number", $plateNumber, PDO::PARAM_STR);
         $stmt->bindParam(":model", $model, PDO::PARAM_STR);
         $stmt->bindParam(":year", $year, PDO::PARAM_INT);
         $stmt->bindParam(":color", $color, PDO::PARAM_STR);
