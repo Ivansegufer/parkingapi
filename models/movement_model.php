@@ -12,8 +12,10 @@ class MovementModel extends Connection {
                 C.year AS year,
                 C.color AS color,
                 M.enter_date AS enterDate,
+                M.stand_code AS standCode,
+                E.id AS establishmentId,
                 E.name AS establishmentName,
-                E.fare AS fare 
+                E.fare AS fare
             FROM movements M
                 INNER JOIN establishments E ON M.establishment_id = E.id
                 INNER JOIN cars C ON M.car_id = C.id
@@ -32,64 +34,25 @@ class MovementModel extends Connection {
         return $results;
     }
 
-    /*
-    public function getAllByEnterDate($enter_date) {
+    public function create($carId, $establishmentId, $enterDate, $standCode) {
         $pdo = self::connect();
 
         $stmt = $pdo->prepare("
-            SELECT 
-                C.id AS car_id,
-                M.id AS movement_id,
-                C.plate_number AS plate_number,
-                C.model AS model,
-                C.year AS year,
-                C.color AS color,
-                M.amount AS amount,
-                M.enter_date AS enter_date,
-                M.exit_date AS exit_date
-            FROM movements M
-                INNER JOIN establishments E ON M.establishment_id = E.id
-                INNER JOIN cars C ON M.car_id = C.id
-            WHERE M.exit_date IS NOT NULL
-                AND DATE(M.enter_date) = :enter_date
-        ");
-
-        $stmt->bindParam(':enter_date', $enter_date, PDO::PARAM_STR);
-        $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $stmt->closeCursor();
-        $pdo = null;
-
-        return $results;
-    }
-    */
-
-    public function create($carId, $establishmentId, $enterDate) {
-        $pdo = self::connect();
-
-        $stmt = $pdo->prepare("
-            INSERT INTO movements (car_id, establishment_id, enter_date) VALUES
-                (:car_id, :establishment_id, :enter_date);
+            INSERT INTO movements (car_id, establishment_id, enter_date, stand_code) VALUES
+                (:car_id, :establishment_id, :enter_date, :stand_code);
         ");
 
         $stmt->bindParam(":car_id", $carId, PDO::PARAM_INT);
         $stmt->bindParam(":establishment_id", $establishmentId, PDO::PARAM_INT);
         $stmt->bindParam(":enter_date", $enterDate, PDO::PARAM_STR);
+        $stmt->bindParam(":stand_code", $standCode, PDO::PARAM_STR);
 
         $success = $stmt->execute();
         
-        if (!$success) {
-            $stmt->closeCursor();
-            $pdo = null;
-            return false;
-        }
-
-        $movementId = $pdo->lastInsertId();
         $stmt->closeCursor();
         $pdo = null;
 
-        return $movementId;
+        return $success;
     }
 
     public function update($id, $amount, $exitDate) {

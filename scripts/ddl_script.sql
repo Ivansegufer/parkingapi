@@ -15,6 +15,8 @@ CREATE TABLE establishments (
     total_stands INT NOT NULL,
     total_occupied_stands INT NOT NULL,
     fare DECIMAL(4, 2) NOT NULL
+    stand_rows_json JSON NOT NULL,
+    stand_columns_json JSON NOT NULL
 );
 
 CREATE TABLE users (
@@ -40,7 +42,8 @@ CREATE TABLE movements (
     establishment_id INT UNSIGNED NOT NULL,
     amount DECIMAL(8, 2),
     enter_date DATETIME NOT NULL,
-    exit_date DATETIME
+    exit_date DATETIME,
+    stand_code VARCHAR(5) NOT NULL
 );
 
 ALTER TABLE establishments ADD CONSTRAINT establishment_users_FK FOREIGN KEY (user_id) REFERENCES users(id);

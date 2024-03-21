@@ -5,36 +5,37 @@ class MovementController {
         return $movementModel->getAllActivesByUserId($userId);
     }
 
-    /*
-    public function getAllByEnterDate($enterDate) {
-        $movementModel = new MovementModel();
-        return $movementModel->getAllByEnterDate();
-    }
-    */
-
     public function create() {
         $movementModel = new MovementModel();
         $establishmentModel = new EstablishmentModel();
-        $movementId = $movementModel->create(
+        $success = $movementModel->create(
             $_POST["carId"],
             $_POST["establishmentId"],
-            $_POST["enterDate"]
+            $_POST["enterDate"],
+            $_POST["standCode"]
         );
 
-        if (!$movementId) {
+        if (!$success) {
             return false;
         }
 
-        return $establishmentModel->increaseOccupiedStands($movementId);
+        return $establishmentModel->increaseOccupiedStands($_POST["establishmentId"]);
     }
 
     public function update() {
         $movementModel = new MovementModel();
-        return $movementModel->update(
+        $establishmentModel = new EstablishmentModel();
+        $success = $movementModel->update(
             $_POST["id"],
             $_POST["amount"],
             $_POST["exitDate"]
         );
+
+        if (!$success) {
+            return false;
+        }
+
+        return $establishmentModel->decreaseOccupiedStands($_POST["establishmentId"]);
     }
 }
 ?>

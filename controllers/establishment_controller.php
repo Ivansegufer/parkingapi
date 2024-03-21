@@ -13,7 +13,9 @@ class EstablishmentController {
             $_POST["description"],
             $_POST["address"],
             $_POST["totalStands"],
-            $_POST["fare"]
+            $_POST["fare"],
+            $_POST["standRowsJson"],
+            $_POST["standColumnsJson"]
         );
     }
 
@@ -25,7 +27,9 @@ class EstablishmentController {
             $_POST["description"],
             $_POST["address"],
             $_POST["totalStands"],
-            $_POST["fare"]
+            $_POST["fare"],
+            $_POST["standRowsJson"],
+            $_POST["standColumnsJson"]
         );
     }
 }
